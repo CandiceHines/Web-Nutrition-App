@@ -11,7 +11,7 @@ function Header() {
             "text-align": "center"
             }
         }>
-            Nutrition Daily
+            NUTRITION DAILY
         </header>
         )
 }
