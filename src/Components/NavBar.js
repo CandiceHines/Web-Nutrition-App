@@ -11,7 +11,8 @@ function NavBar () {
             "justify-content": "center",
             "height": "60px",
             "border-radius": "15px",
-            "background-color": "rgba(44,255,77,.28)"
+            "background-color": "rgba(44,255,77,.28)",
+            "margin": "0px"
 
 
         }}>

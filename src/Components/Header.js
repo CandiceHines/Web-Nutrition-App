@@ -8,7 +8,8 @@ function Header() {
             "padding-bottom": "50px",
             "font-size": "35px",
             "font-family": "Courier New",
-            "text-align": "center"
+            "text-align": "center",
+            "background-color": "white"
             }
         }>
             NUTRITION DAILY

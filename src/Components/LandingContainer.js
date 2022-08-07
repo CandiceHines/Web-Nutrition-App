@@ -5,7 +5,7 @@ import NutritionCalculator from "./NutritionCalculator"
 
 function LandingContainer() {
         return(
-            <div>
+            <div style={{"background-color": "rgba(47, 164, 186, 0.1)", "min-height": "1000px"}}>
                 <Header/>
                 <NavBar/>
                 <NutritionCalculator/>
