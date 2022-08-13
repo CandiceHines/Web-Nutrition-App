@@ -1,6 +1,6 @@
 import React from "react"
 import Prompts from "./Prompts"
-import styled from 'styled-components'
+
 
 
 
@@ -17,7 +17,8 @@ function NutritionCalculator () {
 
     const promptsLiStyle = {"list-style": "none", "text-align": "center", "font-family": "Courier",
         "font-size": "23px", "text-transform": "uppercase",
-        "font-weight": "200"}
+        "font-weight": "100px"
+    }
     
     return (
         <div>
