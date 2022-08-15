@@ -18,15 +18,25 @@ function Prompts () {
         {value: "18"}, {value: "30"}, {value: "50"}, {value: "70"}, {value: "71"}]
 
     useEffect(()=>{
+        console.log(sex, age)
         if (isInfant === "yes" && submit === true) {
             fetch(`http://127.0.0.1:5000/nutrientcalculator?infant=${isInfant}&age=${infantAgeRange}`)
                 .then(response => response.json()).then(data => setNutrientdata(data))
         }
-        else if (isInfant === "no" && sex !== null) {
+        else if (isInfant === "no" && sex === "male") {
             fetch(`http://127.0.0.1:5000/nutrientcalculator?infant=${isInfant}&sex=${sex}&age=${age}`)
                 .then(response => response.json()).then(data => setNutrientdata(data))
         }
-    }, [isInfant, infantAgeRange, age, sex, submit])
+        else if (isInfant === "no" && (sex === "female" && age < "14")) {
+            fetch(`http://127.0.0.1:5000/nutrientcalculator?infant=${isInfant}&sex=${sex}&age=${age}`)
+                .then(response => response.json()).then(data => setNutrientdata(data))
+        }
+        else if (sex === 'female' && age >= "14" && age <= "50") {
+            fetch(`http://127.0.0.1:5000/nutrientcalculator?infant=${isInfant}&sex=${sex}&age=${age}
+               &pregnancy=${pregnant}&breastfeeding=${breastfeeding}`)
+                .then(response => response.json()).then(data => setNutrientdata(data))
+        }
+    }, [isInfant, infantAgeRange, age, sex, pregnant, breastfeeding, submit])
 
 
     return(
@@ -43,7 +53,7 @@ function Prompts () {
             }
             { isInfant === "yes" &&
                 //DATA FOR INFANT
-                <div>
+                <div style={{"margin-bottom": "40px"}}>
                     <p>How old is your infant?</p>
                     <select value={infantAgeRange} onChange={(event) => {setInfantAgeRange(event.target.value)}}>
                         <option value="6">0-6 Months</option>
@@ -69,8 +79,8 @@ function Prompts () {
                     </div>
                 </div>
             }
-            { sex === "male" &&
-                <div>
+            { sex === "male" && 
+                <div style={{"margin-bottom": "40px"}}>
                     <p>Select your age</p>
                     <select value={age} onChange={(event) => {setAge(event.target.value)}}>
                         <option value="3">1-3</option>
@@ -85,7 +95,7 @@ function Prompts () {
                         <button type="submit" onClick={() => setSubmit(true)}>Submit</button>
                 </div>
             }
-            { sex === "female" &&
+            { sex === "female" && 
                 <div>
                     <p>Select your age</p>
                     <select value={age} onChange={(event) => {setAge(event.target.value)}}>
@@ -101,11 +111,19 @@ function Prompts () {
                     <button type="submit" onClick={() => setSubmit(true)}>Submit</button>
                 </div>
             }
-            {sex === "female" && age in Set(["18", "30", "50"]) && 
+            {(sex === "female" && (age >= "14" && age <= "50")) && 
                 <div>
                 <p>Are you pregnant?</p>
                 <button onClick={() => setPregnant("yes")}>Yes</button>
                 <button onClick={() => setPregnant("no")}>No</button>
+                    <p>Are you breastfeeding?</p>
+                    <button onClick={() => setBreastfeeding("yes")}>Yes</button>
+                    <button onClick={() => setBreastfeeding("no")}>No</button>
+                    { (pregnant !== null && breastfeeding !== null) &&
+                        <div>
+                        <button type="submit" onClick={()=> setSubmit(true)}>Submit</button>
+                        </div>
+                    }
                 </div>
             }
             { nutrientData !== null && submit === true &&
